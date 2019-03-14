@@ -9,7 +9,6 @@
         <module name="car_project" />
         <module name="consumer-service" />
         <module name="eureka-service" />
-        <module name="hunter" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
