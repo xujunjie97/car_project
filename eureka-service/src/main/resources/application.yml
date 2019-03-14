@@ -1,0 +1,17 @@
+server:
+  port: 8761
+
+
+eureka:
+  instance:
+    hostname: eureka-server # eureka实例的主机名
+    instance-id: springcloudtest # 服务名称
+    prefer-ip-address: true #访问路径可以显示IP地址
+  client:
+    register-with-eureka: false #不把自己注册到eureka主机上(非高可用场景)
+    fetch-registry: false #不从eureka上来获取服务的注册信息(本身是注册中心)
+    service-url:
+      defaultZone: http://localhost:8761/eureka/ #服务地址
+
+
+

@@ -1,0 +1,40 @@
+spring:
+#数据库配置
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/consumer?characterEncoding=utf-8
+    driver-class-name: com.mysql.jdbc.Driver
+
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+  application:
+    name: consumer-user
+server:
+  port: 8200
+
+
+eureka:
+  instance:
+    prefer-ip-address: true #注册服务时使用服务IP地址
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+#feign:
+#  hystrix:
+#    enabled: true #服务地址
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+#mybatis
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+  typeAliasesPackage: com.bishe.comsumer.entity
+  config-location: classpath:mybatis-config.xml
