@@ -1,4 +1,4 @@
-package com.bishe.comsumer.entity;
+package com.bishe.consumer.entity;
 
 import java.util.List;
 

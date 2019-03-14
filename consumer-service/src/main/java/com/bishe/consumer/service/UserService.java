@@ -1,4 +1,4 @@
-package com.bishe.comsumer.service;
+package com.bishe.consumer.service;
 
 
 public interface UserService {

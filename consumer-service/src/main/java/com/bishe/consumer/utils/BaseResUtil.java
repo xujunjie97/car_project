@@ -1,7 +1,7 @@
-package com.bishe.utils;
+package com.bishe.consumer.utils;
 
 
-import com.bishe.comsumer.enums.ResultEnum;
+import com.bishe.consumer.enums.ResultEnum;
 
 /**
  * function: 对返回结果进行包装，形成统一格式

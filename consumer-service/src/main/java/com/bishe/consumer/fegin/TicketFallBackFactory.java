@@ -1,4 +1,4 @@
-package com.bishe.comsumer.fegin;
+package com.bishe.consumer.fegin;
 
 import org.springframework.stereotype.Component;
 

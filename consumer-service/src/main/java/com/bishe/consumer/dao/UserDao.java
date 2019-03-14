@@ -1,6 +1,7 @@
-package com.bishe.comsumer.dao;
+package com.bishe.consumer.dao;
 
-import com.bishe.comsumer.entity.User;
+
+import com.bishe.consumer.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

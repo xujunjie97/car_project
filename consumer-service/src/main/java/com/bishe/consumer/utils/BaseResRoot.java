@@ -1,4 +1,4 @@
-package com.bishe.utils;
+package com.bishe.consumer.utils;
 
 
 public class BaseResRoot {

@@ -1,4 +1,4 @@
-//package com.bishe.comsumer.exception;
+//package com.bishe.consumer.exception;
 //
 //import com.xphone.enums.ResultEnum;
 //import lombok.Getter;

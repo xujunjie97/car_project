@@ -1,4 +1,4 @@
-package com.bishe.comsumer.enums;
+package com.bishe.consumer.enums;
 
 public enum ResultEnum {
     PARAM_ERROE(10001, "参数错误"),

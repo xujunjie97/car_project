@@ -1,4 +1,4 @@
-package com.bishe.comsumer;
+package com.bishe.consumer;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -14,8 +14,8 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @MapperScan(basePackages = "com.bishe.comsumer.dao")
 @EnableDiscoveryClient//开启发现服务功能
-@EnableFeignClients(basePackages = {"com.bishe.comsumer"})
-@ComponentScan("com.bishe.comsumer")
+@EnableFeignClients(basePackages = {"com.bishe.consumer"})
+@ComponentScan("com.bishe.consumer")
 public class ComsumerServiceApplication {
 
 	public static void main(String[] args) {
