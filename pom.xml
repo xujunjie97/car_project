@@ -17,7 +17,7 @@
     <modules>
         <module>consumer-service</module>
         <module>eureka-service</module>
-        <!--<module>hunter</module>-->
+        <module>hunter</module>
     </modules>
 
     <properties>

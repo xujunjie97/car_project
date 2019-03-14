@@ -6,15 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="car_project" />
         <module name="consumer-service" />
         <module name="eureka-service" />
         <module name="hunter" />
-      </profile>
-      <profile name="Annotation profile for car_project" enabled="true">
-        <sourceOutputDir name="../target/generated-sources/annotations" />
-        <sourceTestOutputDir name="../target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="car_project" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
