@@ -1,0 +1,25 @@
+server:
+  port: 8002
+spring:
+#数据库配置
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/consumer?characterEncoding=utf-8
+    driver-class-name: com.mysql.jdbc.Driver
+  application:
+    name: provider
+
+
+eureka:
+  instance:
+    prefer-ip-address: true #注册服务时使用服务IP地址
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/ #服务地址
+
+#mybatis
+#mybatis:
+#  mapperLocations: classpath:mapper/*.xml
+#  typeAliasesPackage: com.bishe.hunter.entity
+#  config-location: classpath:mybatis-config.xml
