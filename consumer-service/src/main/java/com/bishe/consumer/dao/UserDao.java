@@ -10,13 +10,16 @@ public interface UserDao {
 
     User getOneById(Long id);
 
-    User getOneByNicName(String nicName);
+    User getOneByOpenId(String openId);
+
+    User getOneByNickName(String nickName);
 
     boolean insertOne(@Param("user") User user);
 
     boolean deleteOne(Long id);
 
-    Boolean update(@Param("user")User user);
+    boolean deleteOneByOpenId(String openId);
 
+    Boolean update(@Param("user")User user);
 
 }

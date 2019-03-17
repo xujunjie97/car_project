@@ -1,4 +1,4 @@
-package com.bishe.comsumer;
+package com.bishe.consumer;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ComsumerServiceApplicationTests {
+public class ConsumerServiceApplicationTests {
 
 	@Test
 	public void contextLoads() {

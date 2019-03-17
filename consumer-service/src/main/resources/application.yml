@@ -13,6 +13,10 @@ spring:
     password: guest
   application:
     name: consumer-user
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
 server:
   port: 8200
 
@@ -23,9 +27,9 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
-#feign:
-#  hystrix:
-#    enabled: true #服务地址
+feign:
+  hystrix:
+    enabled: true #服务地址
 
 management:
   endpoints:
@@ -36,5 +40,21 @@ management:
 #mybatis
 mybatis:
   mapperLocations: classpath:mapper/*.xml
-  typeAliasesPackage: com.bishe.comsumer.entity
+  typeAliasesPackage: com.bishe.consumer.entity
   config-location: classpath:mybatis-config.xml
+
+
+
+
+#redis
+redis:
+  host: 127.0.0.1
+  port: 6379
+#  连接超时时间
+  timeout: 10
+  poolMaxTotal: 1000
+#  最大空闲
+  poolMaxIdle: 500
+#  最大等待时间
+  poolMaxWait: 500
+#  password: 123456

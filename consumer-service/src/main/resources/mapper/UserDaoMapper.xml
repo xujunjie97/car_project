@@ -2,36 +2,47 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bishe.comsumer.dao.UserDao">
-    <select id="getOneById" resultType="com.bishe.comsumer.entity.User">
+<mapper namespace="com.bishe.consumer.dao.UserDao">
+    <select id="getOneById" resultType="com.bishe.consumer.entity.User">
         SELECT *
-        FROM User
+        FROM USER
         WHERE id=#{id}
     </select>
 
-    <select id="getOneByNicName" resultType="com.bishe.comsumer.entity.User">
+    <select id="getOneByOpenId" resultType="com.bishe.consumer.entity.User">
         SELECT *
-        FROM User
-        WHERE nic_name=#{nicName}
+        FROM USER
+        WHERE open_id=#{openId}
+    </select>
+
+    <select id="getOneByNickName" resultType="com.bishe.consumer.entity.User">
+        SELECT *
+        FROM USER
+        WHERE nick_name=#{nickName}
     </select>
 
     <delete id="deleteOne">
-        DELETE FROM User WHERE id=#{id}
+        DELETE FROM USER WHERE id=#{id}
+    </delete>
+
+    <delete id="deleteOneByOpenId">
+        DELETE FROM USER WHERE open_id=#{openId}
     </delete>
 
     <insert id="insertOne" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO User(id,nic_name,avatar_url,gender)
-        VALUES (#{user.id},#{user.nicName},#{user.avatarUrl},#{user.gender})
+        INSERT INTO USER(id,nick_name,country,city,gender,open_id)
+        VALUES (#{user.id},#{user.nickName},#{user.country},#{user.city},#{user.gender},#{user.openId})
     </insert>
 
 
     <update id="update">
         UPDATE User
         <set>
-            <if test="user.nicName != null">nic_name=#{user.nicName},</if>
-            <if test="user.avatarUrl != null">avatar_url=#{user.avatarUrl}</if>
+            <if test="user.nickName != null">nick_name=#{user.nickName},</if>
+            <if test="user.country != null">country=#{user.country},</if>
+            <if test="user.city != null">city=#{user.city}</if>
         </set>
-        WHERE id=#{user.id}
+        WHERE open_id=#{user.openId}
     </update>
 
 </mapper>

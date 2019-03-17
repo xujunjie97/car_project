@@ -16,11 +16,15 @@ import lombok.NoArgsConstructor;
 public class User {
     private Long id;
 
-    private String nicName;
-
-    private String avatarUrl;
+    private String nickName;
 
     private String gender;
+
+    private String country;
+
+    private String city;
+
+    private String openId;
 
 
 }

@@ -17,6 +17,8 @@ public enum ResultEnum {
     PHONE_ERROE(10014,"手机号码输入错误"),
     ORDER_EXICT(10015,"订单已存在"),
     ORDER_NOTHAVE(10016,"此账号没有订单"),
+    SERVICE_SERROR(10017,"服务错误"),
+    BIND_ERROR(10018,"绑定异常"),
     SUCCESS(0, "success");
 
 
