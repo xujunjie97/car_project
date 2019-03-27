@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bishe.hunter.dao.AdminDao">
+    <select id="getOne" resultType="com.bishe.hunter.entity.Admin">
+        SELECT *
+        FROM Admin
+        WHERE admin_num = #{adminNum}
+    </select>
+
+
+    <delete id="deleteOne">
+        DELETE FROM Admin WHERE admin_num=#{adminNum}
+    </delete>
+
+
+    <insert id="insertOne" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO Admin(id,admin_num,admin_name,password,roles)
+        VALUES (#{admin.id},#{admin.adminNum},#{admin.adminName},#{admin.passWord},#{admin.roles})
+    </insert>
+
+</mapper>

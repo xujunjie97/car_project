@@ -1,14 +1,7 @@
 //package com.bishe.consumer.interceptor;
 //
 //import com.alibaba.fastjson.JSON;
-//import com.xphone.context.UserContext;
-//import com.xphone.entity.User;
-//import com.xphone.enums.ResultEnum;
-//import com.xphone.service.UserService;
-//import com.xphone.service.impl.RedisService;
-//import com.xphone.service.impl.UserServiceImpl;
-//import com.xphone.utils.BaseResUtil;
-//import com.xphone.utils.CookieUtil;
+//
 //import lombok.extern.slf4j.Slf4j;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Component;

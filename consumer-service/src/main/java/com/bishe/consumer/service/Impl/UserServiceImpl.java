@@ -30,4 +30,13 @@ public class UserServiceImpl implements UserService {
         return userDao.insertOne(user);
 
     }
+
+    @Override
+    public boolean updateCarNum(String openId, String carNum) {
+
+        User user = User.builder().openId(openId).carNum(carNum).build();
+
+        return userDao.update(user);
+
+    }
 }

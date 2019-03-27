@@ -41,6 +41,7 @@
             <if test="user.nickName != null">nick_name=#{user.nickName},</if>
             <if test="user.country != null">country=#{user.country},</if>
             <if test="user.city != null">city=#{user.city}</if>
+            <if test="user.carNum != null">car_num=#{user.carNum}</if>
         </set>
         WHERE open_id=#{user.openId}
     </update>

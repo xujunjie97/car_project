@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bishe.hunter.dao.CarDao">
+    <select id="getOne" resultType="com.bishe.hunter.entity.Car">
+        SELECT *
+        FROM Car
+        WHERE car_num=#{carNum}
+    </select>
+
+    <delete id="delOne">
+        DELETE FROM Car WHERE car_num=#{carNum}
+    </delete>
+
+
+    <insert id="insertOne" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO Car(id,car_num,password,status,user_id)
+        VALUES (#{car.id},#{car.carNum},#{car.password},#{car.status},#{car.userId})
+    </insert>
+
+
+    <update id="update">
+        UPDATE Car
+        <set>
+            <if test="car.status != null">status=#{car.status},</if>
+            <if test="car.userId != null">user_id=#{car.userId}</if>
+        </set>
+        WHERE car_num=#{car.carNum}
+    </update>
+
+</mapper>

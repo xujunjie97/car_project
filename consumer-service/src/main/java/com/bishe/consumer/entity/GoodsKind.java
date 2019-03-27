@@ -2,7 +2,7 @@ package com.bishe.consumer.entity;
 
 import java.util.List;
 
-public class kind {
+public class GoodsKind {
 
     private Long id;
 

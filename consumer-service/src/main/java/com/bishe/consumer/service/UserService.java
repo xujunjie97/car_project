@@ -12,6 +12,6 @@ public interface UserService {
 
     boolean setUser(User user);
 
-
+    boolean updateCarNum(String openId,String carNum);
      
 }

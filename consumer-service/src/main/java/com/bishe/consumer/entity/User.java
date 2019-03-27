@@ -26,5 +26,7 @@ public class User {
 
     private String openId;
 
+    private String carNum;
+
 
 }

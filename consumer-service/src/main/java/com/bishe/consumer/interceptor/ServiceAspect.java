@@ -4,6 +4,7 @@ package com.bishe.consumer.interceptor;
 import com.bishe.consumer.redis.key.prefix.UserKeyPrefix;
 import com.bishe.consumer.service.RedisService;
 import com.sun.xml.internal.ws.util.Pool;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -16,12 +17,13 @@ import java.util.Arrays;
 
 @Configuration
 @Aspect
+@Slf4j
 public class ServiceAspect {
 
     @Autowired
     private RedisService redisService;
 
-    private final String ExpGetResultDataPonit = "execution(* com.bishe.consumer.web.UserController.hello(..))";
+    private final String ExpGetResultDataPonit = "execution(* com.bishe.consumer.web.UserController.userInfo(..))";
 
     //定义切入点,拦截servie包其子包下的所有类的所有方法
 //    @Pointcut("execution(* com.haiyang.onlinejava.complier.service..*.*(..))")
@@ -33,17 +35,15 @@ public class ServiceAspect {
 
     //执行方法前的拦截方法
     @Before("excuteService()")
-    public boolean doBeforeMethod(JoinPoint joinPoint) {
+    public void doBeforeMethod(JoinPoint joinPoint) {
         System.out.println("我是前置通知，我将要执行一个方法了");
         //获取目标方法的参数信息
         Object[] obj = joinPoint.getArgs();
         String userSessionKey = (String) obj[0];
         String userSession = redisService.get(new UserKeyPrefix("user"),userSessionKey,String.class);
         if(StringUtils.isNotEmpty(userSession)){
-            return true;
+          log.info("userSession={}",userSession);
         }
-        System.out.println(Arrays.toString(obj));
-        return false;
     }
 
     /**

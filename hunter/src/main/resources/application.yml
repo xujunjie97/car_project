@@ -1,14 +1,23 @@
 server:
   port: 8002
 spring:
+  thymeleaf:
+      prefix: classpath:/templates/
+      suffix: .html
+      cache: false
+      encoding: utf-8
+      enabled: true
+      mode: HTML
+      servlet:
+        content-type: text/html
 #数据库配置
   datasource:
     username: root
     password: 123456
-    url: jdbc:mysql://127.0.0.1:3306/consumer?characterEncoding=utf-8
+    url: jdbc:mysql://127.0.0.1:3306/car?characterEncoding=utf-8
     driver-class-name: com.mysql.jdbc.Driver
   application:
-    name: provider
+    name: hunter
 
 
 eureka:
@@ -19,7 +28,13 @@ eureka:
       defaultZone: http://localhost:8761/eureka/ #服务地址
 
 #mybatis
-#mybatis:
-#  mapperLocations: classpath:mapper/*.xml
-#  typeAliasesPackage: com.bishe.hunter.entity
-#  config-location: classpath:mybatis-config.xml
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+  typeAliasesPackage: com.bishe.hunter.entity
+  config-location: classpath:mybatis-config.xml
+
+
+bishe:
+  security:
+    browser:
+      loginPage: templates/demo.html
