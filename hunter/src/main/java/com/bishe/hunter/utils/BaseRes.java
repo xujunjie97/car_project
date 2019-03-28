@@ -5,7 +5,7 @@ public class BaseRes<T> extends BaseResRoot {
 
     private T data;
 
-    public T getDate() {
+    public T getData() {
         return data;
     }
 
@@ -18,7 +18,7 @@ public class BaseRes<T> extends BaseResRoot {
         return "BaseRes{" +
                 "code=" + super.getCode() + "," +
                 "msg=" + "\"" + super.getMsg() + "\"" + "," +
-                "date=" + data +
+                "data=" + data +
                 '}';
     }
 }

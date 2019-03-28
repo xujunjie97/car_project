@@ -10,6 +10,7 @@
         <module name="consumer-service" />
         <module name="eureka-service" />
         <module name="hunter" />
+        <module name="txlcn-tm" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -17,6 +18,7 @@
       <module name="consumer-service" target="1.8" />
       <module name="eureka-service" target="1.8" />
       <module name="hunter" target="1.8" />
+      <module name="txlcn-tm" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

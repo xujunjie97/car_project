@@ -6,6 +6,7 @@ public enum ResultEnum {
     PARAM_PASSWORD_CONFIRM_ERROR(10003, "两次密码不一致"),
     CHANGE_STATUS_ERROR(10004,"更新小车状态失败"),
     CHANGE_USERID_ERROR(10005,"更新小车绑定用户失败"),
+    SERVICE_SERROR(10017,"服务错误"),
     BIND_ERROR(10018,"绑定异常"),
     SUCCESS(0, "success");
 

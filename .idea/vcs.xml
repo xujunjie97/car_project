@@ -2,8 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/consumer-service" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/eureka-service" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/hunter" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/txlcn-tm" vcs="" />
   </component>
 </project>

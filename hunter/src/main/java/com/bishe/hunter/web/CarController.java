@@ -3,14 +3,17 @@ package com.bishe.hunter.web;
 
 import com.bishe.hunter.entity.Car;
 import com.bishe.hunter.enums.ResultEnum;
+import com.bishe.hunter.exception.AllException;
 import com.bishe.hunter.service.AdminService;
 import com.bishe.hunter.service.CarService;
 import com.bishe.hunter.utils.BaseRes;
 import com.bishe.hunter.utils.BaseResUtil;
 import com.bishe.hunter.utils.CookiesUtil;
+import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -88,16 +91,19 @@ public class CarController {
      * 更新绑定用户
      */
     @PostMapping("/updateUserId")
+    @Transactional
+    @LcnTransaction
     public BaseRes updateUserId(String carNum, String userId){
 
         if(StringUtils.isNotEmpty(carNum)){
             if(carService.updateCarUserId(carNum,userId)){
                 return BaseResUtil.success();
             }else {
-                return BaseResUtil.error(ResultEnum.CHANGE_USERID_ERROR);
+                throw new AllException(ResultEnum.CHANGE_USERID_ERROR);
             }
         }
-        return BaseResUtil.error(ResultEnum.BIND_ERROR);
+//        return BaseResUtil.error(ResultEnum.BIND_ERROR);
+        throw new AllException(ResultEnum.BIND_ERROR);
     }
 
 
