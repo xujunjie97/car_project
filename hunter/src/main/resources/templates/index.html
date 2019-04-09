@@ -1,12 +1,47 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>home</title>
+    <title>test2</title>
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/global.css">
+    <link rel="stylesheet" href="../static/css/login.css">
+    <script src="../static/js/index.js"></script>
 </head>
+
 <body>
-
-<h1>hello world!</h1>
-
+    <input type="button" value="登录" onclick="Show();">
+    <div id="shade" class="c1 hide"></div>
+    <div id="modal" class="login  hide">
+        <form class="main-form" action="" method="GET">
+            <a href="javascript:;" id="close">
+                <i class="fa fa-remove"></i>
+            </a>
+            <div class="login-wrap">
+                <h1 class="login-title">登录</h1>
+                <div>
+                    <input type="text" class="input" maxlength="20" placeholder="请输入手机号或邮箱" />
+                </div>
+                <div>
+                    <input type="password" class="input" placeholder="请输入密码" />
+                </div>
+                <input type="button" value="登录" class="btn-login" />
+            </div>
+            <div class="data">
+                没有账号？
+                <a class="data-item" href="javascript:;">注册</a>
+                <a class="data-item last" href="javascript:;">忘记密码</a>
+            </div>
+        </form>
+    </div>
+    <script>
+        // 
+        var btn = document.getElementById('close');
+        btn.onclick = function(){
+            document.getElementById('shade').classList.add('hide');
+            document.getElementById('modal').classList.add('hide');
+        }
+    </script>
 </body>
 </html>

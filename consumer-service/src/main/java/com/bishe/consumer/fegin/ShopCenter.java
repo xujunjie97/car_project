@@ -1,6 +1,8 @@
 package com.bishe.consumer.fegin;
 
 
+import com.bishe.consumer.VO.BillVO;
+import com.bishe.consumer.VO.GoodsVO;
 import com.bishe.consumer.entity.Goods;
 import com.bishe.consumer.entity.GoodsKind;
 import org.apache.ibatis.annotations.Param;
@@ -14,9 +16,15 @@ import java.util.List;
 @FeignClient(name = "market", fallback = ShopCenterFallBackFactory.class)
 public interface ShopCenter {
 
-    @RequestMapping(value = "/",method = RequestMethod.GET)
-    List<GoodsKind> getShopCenter();
+    @RequestMapping(value = "/goodsType/select",method = RequestMethod.GET)
+    List<GoodsVO> getShopCenter();
 
-    @RequestMapping(value = "/",method = RequestMethod.GET)
+    @RequestMapping(value = "/goods/selectOne",method = RequestMethod.POST)
     Goods getOneGoods(@RequestParam("id") Long id);
+
+    @RequestMapping(value = "/bill/getBill",method = RequestMethod.POST)
+    List<BillVO> selectAll(@RequestParam("userId") String userId, @RequestParam("time") String time
+    ,@RequestParam("page") Integer page,@RequestParam("pageSize") Integer pageSize);
+
+
 }

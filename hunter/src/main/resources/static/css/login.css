@@ -1,0 +1,130 @@
+.login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .3);
+    z-index: 999;
+}
+.positionR {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 20px;
+    line-height: 60px;
+}
+.loginBtn {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 0;
+    outline: 0;
+    background-color: #23262E;
+    color:rgba(255, 255, 255, .7);
+    cursor: pointer;
+}
+.closeBtn {
+    float: right;
+    line-height: 24px;
+    font-size: 18px;
+}
+.login .main-form {
+    position: relative;
+    padding: 24px;
+    width: 318px;
+    max-width: 100%;
+    font-size: 14px;
+    background-color: #fff;
+    border-radius: 2px;
+    box-sizing: border-box;
+}
+
+.login .main-form .fa-remove {
+    opacity: .3;
+}
+
+.login .main-form .fa-remove:hover {
+    opacity: .8;
+}
+
+.login .main-form .login-title {
+    font-size: 18px;
+    margin: 0 0 30px;
+    font-weight: bold;
+    color: #333;
+}
+
+.fa-remove {
+    float: right;
+    cursor: pointer;
+    font-size: 18px;
+    opacity: .4;
+}
+
+.login .main-form .input {
+    border: 1px solid #e9e9e9;
+    display: block;
+    box-sizing: border-box;
+    width: 270px;
+    height: 40px;
+    padding-left: 10px;
+    margin: 0 auto 10px;
+    font-size: 14px;
+    border-radius: 2px;
+    outline: none;
+    color: #76838f;
+}
+
+.login .main-form .input:focus {
+    outline: none;
+    border: 1px solid #62a8ea;
+}
+
+.login .main-form .btn-login {
+    background-color: #007fff;
+    border: none;
+    width: 270px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 2px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.login .main-form .btn-login:hover {
+    opacity: 0.9;
+}
+
+.login .main-form .data {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #8b9196;
+}
+
+.login .main-form .data .data-item {
+    text-decoration: none;
+    color: #007fff;
+}
+
+.login .main-form .data .data-item.last {
+    float: right;
+}
+
+.hide {
+    display: none;
+}
+
+.c1 {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .5);
+    z-index: 2;
+}

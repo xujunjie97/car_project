@@ -30,6 +30,18 @@ eureka:
 feign:
   hystrix:
     enabled: true #服务地址
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
 
 management:
   endpoints:
@@ -57,4 +69,4 @@ redis:
   poolMaxIdle: 500
 #  最大等待时间
   poolMaxWait: 500
-#  password: 123456
+

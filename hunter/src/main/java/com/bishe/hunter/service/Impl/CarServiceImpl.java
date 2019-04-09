@@ -4,6 +4,7 @@ import com.bishe.hunter.dao.CarDao;
 import com.bishe.hunter.entity.Admin;
 import com.bishe.hunter.entity.Car;
 import com.bishe.hunter.enums.ResultEnum;
+import com.bishe.hunter.exception.AllException;
 import com.bishe.hunter.service.CarService;
 import com.bishe.hunter.utils.BaseRes;
 import com.bishe.hunter.utils.BaseResUtil;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -26,6 +28,8 @@ import java.util.Objects;
 public class CarServiceImpl implements CarService{
 
     private final static String NOUSER = "NOUSER";
+
+    private final static int STATUS_UP = 1;
 
     @Autowired
     private CarDao carDao;
@@ -46,7 +50,7 @@ public class CarServiceImpl implements CarService{
 
                     return BaseResUtil.success(car);
                 }else {
-                    return BaseResUtil.error(ResultEnum.PARAM_ERROE);
+                    return BaseResUtil.error(ResultEnum.PARAM_PASSWORD_ERROR);
                 }
             }else {
                 return BaseResUtil.error(ResultEnum.BIND_ERROR);
@@ -67,7 +71,7 @@ public class CarServiceImpl implements CarService{
 
     @Override
     public boolean updateCarStatus(String carNum, int status) {
-        Car car = Car.builder().status(status).carNum(carNum).build();
+        Car car = Car.builder().carStatus(status).carNum(carNum).build();
         return carDao.update(car);
     }
 
@@ -76,10 +80,26 @@ public class CarServiceImpl implements CarService{
     public boolean updateCarUserId(String carNum, String userId) {
         if(StringUtils.isEmpty(userId)){
             log.info("userId传入失败");
+            throw new AllException("userId传入失败");
+        }
+        //解除绑定
+        if(userId.equals(NOUSER)){
+            Car car = Car.builder().userId(userId).carNum(carNum).carStatus(1).build();
+            return carDao.update(car);
+        }
+
+        int count = carDao.count(carNum,STATUS_UP,NOUSER);
+
+        if(count == 1){
+            Car car = Car.builder().userId(userId).carNum(carNum).carStatus(1).build();
+            return carDao.update(car);
+        }else if(count > 1){
+            throw new AllException("查询结果不止一个。");
+
+        }else {
             return false;
         }
-        Car car = Car.builder().userId(userId).carNum(carNum).build();
-        return carDao.update(car);
+
     }
 
     @Override
@@ -89,5 +109,11 @@ public class CarServiceImpl implements CarService{
            return BaseResUtil.error(-1,"小车没绑定用户");
        }
        return BaseResUtil.success(car.getUserId());
+    }
+
+
+    @Override
+    public List<Car> getAllCar() {
+        return carDao.getAllCar();
     }
 }

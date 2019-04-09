@@ -1,17 +1,20 @@
 package com.bishe.consumer.web;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bishe.consumer.VO.BillVO;
 import com.bishe.consumer.entity.User;
 import com.bishe.consumer.enums.ResultEnum;
 import com.bishe.consumer.exception.AllException;
 import com.bishe.consumer.fegin.Code2Session;
 import com.bishe.consumer.fegin.HunterClient;
 import com.bishe.consumer.redis.key.prefix.UserKeyPrefix;
+import com.bishe.consumer.service.GoodsService;
 import com.bishe.consumer.service.RedisService;
 import com.bishe.consumer.service.UserService;
 import com.bishe.consumer.utils.BaseRes;
 import com.bishe.consumer.utils.BaseResUtil;
 import com.codingapi.txlcn.tc.annotation.LcnTransaction;
+import com.netflix.discovery.converters.Auto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,12 +30,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @RestController
 @Slf4j
 @PropertySource({"classpath:weixin.properties"})
-public class UserController {
+public class UserController extends BaseController {
 
     private final static String NOUSER = "NOUSER";
 
@@ -63,6 +67,9 @@ public class UserController {
 
     @Autowired
     private HunterClient hunterClient;
+
+    @Autowired
+    private GoodsService goodsService;
 
 
     @RequestMapping(value = "/onLogin")
@@ -105,17 +112,17 @@ public class UserController {
     private String setSession(String openid, String sessionKey) {
         String userSession = openid + "_" + sessionKey;
         String userSessionId = String.valueOf(System.currentTimeMillis());
-        redisService.set(KEY, userSessionId, userSession);
+        this.setCache(KEY, userSessionId, userSession);
         return userSessionId;
     }
 
     @RequestMapping(value = "/userInfo")
     public BaseRes userInfo(String userSessionKey, String userinfo) {
-        String userSession = redisService.get(new UserKeyPrefix("user"), userSessionKey, String.class);
+        String userSession = this.getUser(userSessionKey);
         if (StringUtils.isEmpty(userSession)) {
             return BaseResUtil.error(-1, "登陆信息失效");
         }
-        redisService.set(KEY, userSessionKey, userSession);
+        this.setCache(KEY, userSessionKey, userSession);
         JSONObject jsonObject = new JSONObject();
         String openId = userSession.split("_")[0];
         User user = userService.getUser(openId);
@@ -132,21 +139,21 @@ public class UserController {
                 return BaseResUtil.error(-2, "储存用户数据失败");
             }
         }
-
-        return BaseResUtil.success();
+        return BaseResUtil.success(user.getCarNum());
     }
 
     @RequestMapping(value = "/getBill")
-    public BaseRes getHistoryBill(String userSessionKey, String date, int start, int count) throws ParseException {
-        String userSession = redisService.get(new UserKeyPrefix("user"), userSessionKey, String.class);
+    public BaseRes getHistoryBill(String userSessionKey, String date,
+                                  Integer page,
+                                  Integer pageSize) throws ParseException {
+        String userSession = this.getUser(userSessionKey);
         String openId = userSession.split("_")[0];
         User user = userService.getUser(openId);
         if (null != user) {
-            //todo 调用商店服务，获取数据
-            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
-            Date endDate = sf.parse(date);
-            System.out.println(endDate.getTime());
-            redisService.set(KEY, userSessionKey, userSession);
+            this.setCache(KEY, userSessionKey, userSession);
+            List<BillVO> billList = goodsService.getBill(openId,date,page,pageSize);
+            log.info("返回账单数据={}",billList);
+            return BaseResUtil.success(billList);
         }
         return BaseResUtil.success();
     }
@@ -157,7 +164,7 @@ public class UserController {
     @LcnTransaction
     public BaseRes bindCar(String userSessionKey, String carNum) {
 
-        String userSession = redisService.get(new UserKeyPrefix("user"), userSessionKey, String.class);
+        String userSession = this.getUser(userSessionKey);
         if (StringUtils.isEmpty(userSession)) {
             return BaseResUtil.error(-1, "登陆信息失效");
         }
@@ -169,7 +176,7 @@ public class UserController {
             return BaseResUtil.error(ResultEnum.ACCOUNT_NOT);
         }
         //更新缓存
-        redisService.set(KEY, userSessionKey, userSession);
+        this.setCache(KEY, userSessionKey, userSession);
         // 调用远程方法更新小车绑定状态
         BaseRes<Object> result = hunterClient.updateUserId(carNum, user.getOpenId());
         if (result.getCode() != 0) {
@@ -179,7 +186,7 @@ public class UserController {
 
         //调用本地方法更新用户绑定状态
         if (userService.updateCarNum(user.getOpenId(), carNum)) {
-                return BaseResUtil.success(carNum);
+            return BaseResUtil.success(carNum);
         } else {
             throw new AllException(ResultEnum.BIND_CAR_ERROR);
         }
@@ -187,8 +194,10 @@ public class UserController {
 
 
     @RequestMapping("/unBind")
+    @Transactional
+    @LcnTransaction
     public BaseRes unBind(String userSessionKey) {
-        String userSession = redisService.get(new UserKeyPrefix("user"), userSessionKey, String.class);
+        String userSession = this.getUser(userSessionKey);
         if (StringUtils.isEmpty(userSession)) {
             return BaseResUtil.error(-1, "登陆信息失效");
         }
@@ -199,47 +208,37 @@ public class UserController {
             return BaseResUtil.error(ResultEnum.ACCOUNT_NOT);
         }
         //更新缓存
-        redisService.set(KEY, userSessionKey, userSession);
-        try {
-            // 调用远程方法更新小车绑定状态
-            BaseRes<Object> result = hunterClient.updateUserId(user.getCarNum(), NOUSER);
-            if (result.getCode() != 0) {
-                log.error("解除绑定，远程方法调用失败");
-                return BaseResUtil.error(ResultEnum.RPC_ERROR);
-            }
-        } catch (Exception e) {
-            log.error("解除绑定，远程调用错误={}", e);
+        this.setCache(KEY, userSessionKey, userSession);
+
+        // 调用远程方法更新小车绑定状态
+        BaseRes<Object> result = hunterClient.updateUserId(user.getCarNum(), NOUSER);
+        if (result.getCode() != 0) {
+            log.error("解除绑定，远程方法调用失败");
+            throw new AllException(ResultEnum.RPC_ERROR);
         }
 
-        try {
-            //调用本地方法更新用户绑定状态
-            if (userService.updateCarNum(user.getOpenId(), NOCAR)) {
-                return BaseResUtil.success();
-            } else {
-                return BaseResUtil.error(ResultEnum.BIND_CAR_ERROR);
-            }
-        } catch (Exception e) {
-            log.error("解除绑定，本地用户绑定小车错误={}", e);
+        //调用本地方法更新用户绑定状态
+        if (userService.updateCarNum(user.getOpenId(), NOCAR)) {
+            return BaseResUtil.success();
+        } else {
+            log.error("解除绑定，本地用户绑定小车错误={}");
+            throw new AllException(ResultEnum.BIND_CAR_ERROR);
         }
+    }
 
-        return BaseResUtil.error(ResultEnum.BIND_ERROR);
+    @RequestMapping("/unBindByAdmin")
+    @Transactional
+    @LcnTransaction
+    public BaseRes unBindByAdmin(String openId) {
+
+        if (userService.updateCarNum(openId, NOCAR)) {
+            return BaseResUtil.success();
+        } else {
+            return BaseResUtil.error(ResultEnum.BIND_CAR_ERROR);
+        }
 
     }
 
-
-//    @RequestMapping(value = "/session")
-//    public String setSession(HttpServletRequest request){
-//        String userSessionId = String.valueOf(System.currentTimeMillis());
-//        request.getSession().setAttribute("user",userSessionId);
-//        return userSessionId;
-//    }
-//
-//    @RequestMapping(value = "/getSession")
-//    public String getSession(HttpServletRequest request){
-//
-//        String userSession = (String) request.getSession().getAttribute("user");
-//        System.out.println(userSession);return userSession;
-//    }
 
 
 }

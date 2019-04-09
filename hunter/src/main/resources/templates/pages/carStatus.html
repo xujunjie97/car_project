@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title> 智能小车管理后台</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">智能小车管理后台</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="/admin/main">控制台</a></li>
+            <!--<li class="layui-nav-item"><a href="">商品管理</a></li>-->
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它系统</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <div class="positionR">
+            <input id="loginBtn" class="loginBtn" type="button" value="登出" onclick="Show();">
+        </div>
+        <ul id="loginedBox" class="layui-nav layui-layout-right hide">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    贤心
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">退了</a></li>
+        </ul>
+
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;">小车信息</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">基本信息</a></dd>
+                        <dd><a href="javascript:;">电量信息</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;">小车控制</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/admin/carStatus">状态控制</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div style="padding: 15px;">小车状态操作页</div>
+
+        <div style="margin-bottom: 5px;">
+
+            <!-- 示例-970 -->
+            <ins class="adsbygoogle" style="display:inline-block;width:970px;height:90px"
+                 data-ad-client="ca-pub-6111334333458862" data-ad-slot="3820120620"></ins>
+
+        </div>
+
+        <!--<div class="layui-btn-group demoTable">-->
+        <!--<button class="layui-btn" data-type="getCheckData">获取选中行数据</button>-->
+        <!--<button class="layui-btn" data-type="getCheckLength">获取选中数目</button>-->
+        <!--<button class="layui-btn" data-type="isAll">验证是否全选</button>-->
+        <!--</div>-->
+
+        <table class="layui-table" lay-data="{width: 700, height:332, url:'/admin/getAllCar', page:true, id:'idTest'}"
+               lay-filter="demo">
+            <thead>
+            <tr class="tableOne">
+                <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+                <th lay-data="{field:'id', width:80, sort: true, fixed: true}">ID</th>
+                <th lay-data="{field:'carNum', width:150}">小车名</th>
+                <th lay-data="{field:'userId', width:150}">绑定用户</th>
+                <th lay-data="{field:'carStatus', width:80}">状态</th>
+                <th lay-data="{fixed: 'right', width:178, align:'center', toolbar:'#barDemo'}"></th>
+            </tr>
+            </thead>
+        </table>
+
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        © xusiduo
+    </div>
+</div>
+
+
+<!--start表格script-->
+
+<script type="text/html" id="barDemo">
+
+    {{#  if(d.carStatus == 1){ }}
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="DOWN">停用</a>
+    {{#  } }}
+
+    {{#  if(d.carStatus == 0){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="UP">启用</a>
+    {{#  } }}
+</script>
+
+
+<script src="/layui/layui.all.js"></script>
+<script>
+
+    layui.use('table', function () {
+        var table = layui.table;
+        //监听表格复选框选择
+        table.on('checkbox(demo)', function (obj) {
+            console.log(obj)
+        });
+        //监听工具条
+        table.on('tool(demo)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') {
+                layer.msg('ID：' + data.id + ' 的查看操作');
+            } else if (obj.event === 'UP') {
+                layer.confirm('启用此小车？', function (index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if (obj.event === 'DOWN') {
+//                layer.alert('编辑行：<br>'+ JSON.stringify(data))
+                layer.confirm('停用小车？', function (index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            }
+        });
+
+        var $ = layui.$, active = {
+            getCheckData: function () { //获取选中数据
+                var checkStatus = table.checkStatus('idTest')
+                    , data = checkStatus.data;
+                layer.alert(JSON.stringify(data));
+            }
+            , getCheckLength: function () { //获取选中数目
+                var checkStatus = table.checkStatus('idTest')
+                    , data = checkStatus.data;
+                layer.msg('选中了：' + data.length + ' 个');
+            }
+            , isAll: function () { //验证是否全选
+                var checkStatus = table.checkStatus('idTest');
+                layer.msg(checkStatus.isAll ? '全选' : '未全选')
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+<!--end表格script-->
+
+
+<script>
+    //
+    var btn = document.getElementById('close');
+    btn.onclick = function () {
+        document.getElementById('shade').classList.add('hide');
+        document.getElementById('modal').classList.add('hide');
+    };
+
+    function Show() {
+
+        window.location.href = "/logout"
+    }
+
+    function Hide() {
+        document.getElementById('shade').classList.add('hide');
+        document.getElementById('modal').classList.add('hide');
+    }
+
+    document.getElementById('loginEvent').onclick = function () {
+        document.getElementById('loginedBox').classList.remove('hide');
+        document.getElementById('shade').classList.add('hide');
+        document.getElementById('loginBtn').classList.add('hide');
+        document.getElementById('modal').classList.add('hide');
+    }
+
+</script>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function () {
+        var element = layui.element;
+
+    });
+</script>
+</body>
+
+</html>

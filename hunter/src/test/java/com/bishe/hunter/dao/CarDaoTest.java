@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
@@ -23,7 +25,7 @@ public class CarDaoTest {
     }
     @Test
     public void insertOne() throws Exception {
-        Car car = Car.builder().carNum("001").password("123456").status(1).build();
+        Car car = Car.builder().carNum("001").password("123456").carStatus(1).build();
         carDao.insertOne(car);
 
 
@@ -36,9 +38,17 @@ public class CarDaoTest {
     @Test
     public void update() throws Exception {
 
-        Car car = Car.builder().carNum("001").status(0).userId("afaesf44547").build();
+        Car car = Car.builder().carNum("001").carStatus(0).userId("afaesf44547").build();
         carDao.update(car);
 
+    }
+
+    @Test
+    public void getAllCar(){
+        List<Car> carList = carDao.getAllCar();
+        for (Car car: carList){
+            System.out.println(car);
+        }
     }
 
 }

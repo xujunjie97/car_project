@@ -38,18 +38,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/").permitAll()
+
+
+        //定制请求的授权规则
+        http.authorizeRequests().antMatchers("/").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .and()
-                .formLogin()
-//                .formLogin().loginPage("/userlogin").defaultSuccessUrl("/index")
-                .and()
-                .logout()
-                .and()
                 .csrf().disable();
-//                .logout().logoutUrl("/logout").logoutSuccessUrl("/login");
+        http.formLogin().defaultSuccessUrl("/admin/main");
+        http.logout().logoutSuccessUrl("/car/toHome");
+        http.rememberMe();
     }
 
     /**

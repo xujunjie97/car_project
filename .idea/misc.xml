@@ -5,6 +5,7 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/txlcn-tm/pom.xml" />
+        <option value="$PROJECT_DIR$/market/pom.xml" />
       </list>
     </option>
   </component>

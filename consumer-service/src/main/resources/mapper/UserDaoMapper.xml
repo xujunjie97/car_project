@@ -3,20 +3,26 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bishe.consumer.dao.UserDao">
+    <sql id="user">
+        id,nick_name,country,city,gender,open_id,car_num
+    </sql>
     <select id="getOneById" resultType="com.bishe.consumer.entity.User">
-        SELECT *
+        SELECT
+        <include refid="user"></include>
         FROM USER
         WHERE id=#{id}
     </select>
 
     <select id="getOneByOpenId" resultType="com.bishe.consumer.entity.User">
-        SELECT *
+        SELECT
+        <include refid="user"></include>
         FROM USER
         WHERE open_id=#{openId}
     </select>
 
     <select id="getOneByNickName" resultType="com.bishe.consumer.entity.User">
-        SELECT *
+        SELECT
+        <include refid="user"></include>
         FROM USER
         WHERE nick_name=#{nickName}
     </select>

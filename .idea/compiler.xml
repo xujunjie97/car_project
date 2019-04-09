@@ -6,10 +6,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="car_project" />
-        <module name="consumer-service" />
-        <module name="eureka-service" />
         <module name="hunter" />
+        <module name="car_project" />
+        <module name="market" />
+        <module name="eureka-service" />
+        <module name="consumer-service" />
+      </profile>
+      <profile name="Annotation profile for txlcn-tm" enabled="true">
+        <sourceOutputDir name="../../target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
         <module name="txlcn-tm" />
       </profile>
     </annotationProcessing>
@@ -18,7 +24,14 @@
       <module name="consumer-service" target="1.8" />
       <module name="eureka-service" target="1.8" />
       <module name="hunter" target="1.8" />
+      <module name="market" target="1.8" />
       <module name="txlcn-tm" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="car_project" options="-parameters" />
+      <module name="consumer-service" options="-parameters" />
+    </option>
   </component>
 </project>

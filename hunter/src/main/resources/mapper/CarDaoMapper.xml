@@ -9,13 +9,19 @@
         WHERE car_num=#{carNum}
     </select>
 
+    <select id="count"  resultType="int">
+        SELECT count(*)
+        FROM Car
+        WHERE car_num =#{carNum} AND user_id = #{userId} AND car_status = #{status}
+    </select>
+
     <delete id="delOne">
         DELETE FROM Car WHERE car_num=#{carNum}
     </delete>
 
 
     <insert id="insertOne" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO Car(id,car_num,password,status,user_id)
+        INSERT INTO Car(id,car_num,password,car_status,user_id)
         VALUES (#{car.id},#{car.carNum},#{car.password},#{car.status},#{car.userId})
     </insert>
 
@@ -23,10 +29,17 @@
     <update id="update">
         UPDATE Car
         <set>
-            <if test="car.status != null">status=#{car.status},</if>
+            <if test="car.status != null">car_status=#{car.status},</if>
             <if test="car.userId != null">user_id=#{car.userId}</if>
         </set>
         WHERE car_num=#{car.carNum}
     </update>
+
+
+    <select id="getAllCar"  resultType="com.bishe.hunter.entity.Car">
+        SELECT *
+        FROM Car
+        ORDER BY id
+    </select>
 
 </mapper>

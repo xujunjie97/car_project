@@ -1,13 +1,16 @@
 server:
   port: 8002
 spring:
+  devtools:
+    restart:
+      additional-paths: static/**,templates/**
   thymeleaf:
       prefix: classpath:/templates/
       suffix: .html
       cache: false
       encoding: utf-8
       enabled: true
-      mode: HTML
+      mode: HTML5
       servlet:
         content-type: text/html
 #数据库配置
@@ -38,3 +41,16 @@ bishe:
   security:
     browser:
       loginPage: templates/demo.html
+feign:
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000

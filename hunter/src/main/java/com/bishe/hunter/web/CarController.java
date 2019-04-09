@@ -13,20 +13,20 @@ import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.GET;
 import java.util.Objects;
 import java.util.concurrent.locks.Lock;
 
 /**
  * @author xujunjie
  */
-@RestController
+@Controller
 @Slf4j
 @RequestMapping("/car")
 public class CarController {
@@ -34,8 +34,19 @@ public class CarController {
     @Autowired
     private CarService carService;
 
+    private final String prefix = "pages/";
+
+    @GetMapping("/toHome")
+    public String home(){
+
+        return prefix+"home";
+    }
+
+
     @PostMapping("/login")
-    public BaseRes adminLogin(HttpServletRequest request, HttpServletResponse response, Car car){
+    @ResponseBody
+    public BaseRes adminLogin(HttpServletRequest request, HttpServletResponse response,
+                              @RequestBody Car car){
 
             Object object = CookiesUtil.getCookies(request,"carNum");
 
@@ -47,7 +58,8 @@ public class CarController {
     }
 
 
-    @PostMapping("/loginOut")
+    @GetMapping("/loginOut")
+    @ResponseBody
     public BaseRes adminLoginOut(HttpServletRequest request, HttpServletResponse response, Car car){
 
         if(carService.loginOut(car.getCarNum())){
@@ -62,6 +74,7 @@ public class CarController {
     }
 
     @PostMapping("/checkBind")
+    @ResponseBody
     public BaseRes checkBindStatus(String carNum,String time){
         boolean cycle = false;
         int num = 0;
@@ -93,6 +106,7 @@ public class CarController {
     @PostMapping("/updateUserId")
     @Transactional
     @LcnTransaction
+    @ResponseBody
     public BaseRes updateUserId(String carNum, String userId){
 
         if(StringUtils.isNotEmpty(carNum)){
@@ -102,7 +116,6 @@ public class CarController {
                 throw new AllException(ResultEnum.CHANGE_USERID_ERROR);
             }
         }
-//        return BaseResUtil.error(ResultEnum.BIND_ERROR);
         throw new AllException(ResultEnum.BIND_ERROR);
     }
 

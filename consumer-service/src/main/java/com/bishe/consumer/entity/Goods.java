@@ -26,7 +26,7 @@ public class Goods {
 
     private String name;
 
-    private List<String> images;
+    private String images;
 
     private String title;
 
