@@ -20,7 +20,7 @@ public class Car {
 
     private String password;
 
-    private int carStatus;
+    private Integer carStatus;
 
     private String userId;
 }

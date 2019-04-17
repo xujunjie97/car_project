@@ -8,6 +8,7 @@ import com.bishe.consumer.utils.BaseResUtil;
 import com.netflix.discovery.converters.Auto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +37,7 @@ public class GoodsController {
      * 获取单个商品数据
      * @param goodsId 商品ID
      */
-    @PostMapping("/getOneGoods")
+    @GetMapping("/getOneGoods")
     public BaseRes getOneGoods(Long goodsId){
         Goods goods = goodsService.getOneGoods(goodsId);
         log.info("goods={}",goods);

@@ -15,7 +15,7 @@ public interface CarService {
 
     boolean loginOut(String carNum);
 
-    boolean updateCarStatus(String carNum, int status);
+    boolean updateCarStatus(String carNum, Integer status);
 
     boolean updateCarUserId(String carNum, String userId);
 

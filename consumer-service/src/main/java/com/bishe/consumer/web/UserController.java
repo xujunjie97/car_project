@@ -142,6 +142,13 @@ public class UserController extends BaseController {
         return BaseResUtil.success(user.getCarNum());
     }
 
+    /**
+     * 获取账单信息
+     * @param userSessionKey 用户session
+     * @param date 日期
+     * @param page 页数
+     * @param pageSize 页大小
+     */
     @RequestMapping(value = "/getBill")
     public BaseRes getHistoryBill(String userSessionKey, String date,
                                   Integer page,

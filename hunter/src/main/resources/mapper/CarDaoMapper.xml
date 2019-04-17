@@ -29,7 +29,7 @@
     <update id="update">
         UPDATE Car
         <set>
-            <if test="car.status != null">car_status=#{car.status},</if>
+            <if test="car.carStatus != null">car_status=#{car.carStatus},</if>
             <if test="car.userId != null">user_id=#{car.userId}</if>
         </set>
         WHERE car_num=#{car.carNum}

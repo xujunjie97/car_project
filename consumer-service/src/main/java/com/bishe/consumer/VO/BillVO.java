@@ -17,17 +17,17 @@ import java.util.List;
 @NoArgsConstructor
 public class BillVO {
 
-    private Date time;
+    private String time;
 
     private String totalPrice;
 
     private List<OrderDetail> billDetail;
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

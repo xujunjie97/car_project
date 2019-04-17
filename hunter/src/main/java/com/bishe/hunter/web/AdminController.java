@@ -67,8 +67,7 @@ public class AdminController {
      */
     @PostMapping("/updateStatus")
     @ResponseBody
-    public BaseRes updateStatus(String carNum, int status) {
-
+    public BaseRes updateStatus(@RequestParam String carNum,  @RequestParam Integer status) {
         if (StringUtils.isNotEmpty(carNum)) {
             if (carService.updateCarStatus(carNum, status)) {
                 return BaseResUtil.success();

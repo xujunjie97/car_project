@@ -132,19 +132,72 @@
         });
         //监听工具条
         table.on('tool(demo)', function (obj) {
-            var data = obj.data;
-            if (obj.event === 'detail') {
-                layer.msg('ID：' + data.id + ' 的查看操作');
-            } else if (obj.event === 'UP') {
+            // var data = obj.data;
+          if (obj.event === 'UP') {
                 layer.confirm('启用此小车？', function (index) {
-                    obj.del();
-                    layer.close(index);
+                    var carNum = obj.data.carNum.toString();
+                    var status = 1;
+                    var url = "/admin/updateStatus";
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        data:  {
+                            "carNum": carNum,
+                            "status": status
+                        },
+                        dataType: "json",
+                        async: false,
+                        success: function(data){
+                            if(data.code == 0){
+                                obj.data.carStatus = 1;
+                                // console.log(obj.tr);
+                                obj.tr[0].cells[4].innerHTML = '<div class="layui-table-cell laytable-cell-1-0-4">1</div>';
+                                obj.tr[0].cells[5].innerHTML = '<div class="layui-table-cell laytable-cell-1-0-5">  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="DOWN">停用</a> </div>';
+                                layer.close(index);
+                            }else {
+                                alert(data.msg);
+                                layer.close(index);
+                            }
+
+                        },
+                        error: function () {
+                            alert("系统异常");
+                            layer.close(index);
+                        }
+                    });
+
                 });
             } else if (obj.event === 'DOWN') {
-//                layer.alert('编辑行：<br>'+ JSON.stringify(data))
                 layer.confirm('停用小车？', function (index) {
-                    obj.del();
-                    layer.close(index);
+                    var carNum = obj.data.carNum.toString();
+                    var status = 0;
+                    var url = "/admin/updateStatus";
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        data:  {
+                            "carNum": carNum,
+                            "status": status
+                        },
+                        dataType: "json",
+                        async: false,
+                        success: function(data){
+                            if(data.code == 0){
+                                obj.data.carStatus = 0;
+                                // console.log(obj.tr);
+                                obj.tr[0].cells[4].innerHTML = '<div class="layui-table-cell laytable-cell-1-0-4">0</div>';
+                                obj.tr[0].cells[5].innerHTML = '<div class="layui-table-cell laytable-cell-1-0-5"> <a class="layui-btn layui-btn-xs" lay-event="UP">启用</a> </div>';
+                                layer.close(index);
+                            }else {
+                                alert(data.msg);
+                                layer.close(index);
+                            }
+                        },
+                        error: function () {
+                            alert("系统异常");
+                            layer.close(index);
+                        }
+                    });
                 });
             }
         });

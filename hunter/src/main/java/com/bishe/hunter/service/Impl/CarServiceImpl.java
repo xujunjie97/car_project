@@ -70,7 +70,7 @@ public class CarServiceImpl implements CarService{
 
 
     @Override
-    public boolean updateCarStatus(String carNum, int status) {
+    public boolean updateCarStatus(String carNum, Integer status) {
         Car car = Car.builder().carStatus(status).carNum(carNum).build();
         return carDao.update(car);
     }
