@@ -1,9 +1,12 @@
 package com.bishe.hunter.web;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.bishe.hunter.entity.Car;
+import com.bishe.hunter.entity.Position;
 import com.bishe.hunter.enums.ResultEnum;
 import com.bishe.hunter.exception.AllException;
+import com.bishe.hunter.fegin.CarControl;
 import com.bishe.hunter.service.AdminService;
 import com.bishe.hunter.service.CarService;
 import com.bishe.hunter.utils.BaseRes;
@@ -13,6 +16,7 @@ import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +37,9 @@ public class CarController {
 
     @Autowired
     private CarService carService;
+
+    @Autowired
+    private CarControl carControl;
 
     private final String prefix = "pages/";
 
@@ -120,4 +127,31 @@ public class CarController {
     }
 
 
+//    @PostMapping("/goCar")
+//    @ResponseBody
+//    public BaseRes goCar(String blueToothMac, String position){
+//
+//        if(StringUtils.isEmpty(blueToothMac) || StringUtils.isEmpty(position)) {
+//            return BaseResUtil.error(ResultEnum.PARAM_ERROE);
+//        }
+//
+//
+//
+//    }
+
+    @PostMapping("/goCar")
+    @ResponseBody
+    public BaseRes goCar(Position position){
+
+        if(Objects.isNull(position)) {
+            return BaseResUtil.error(ResultEnum.PARAM_ERROE);
+        }
+
+        ResponseEntity<String> param = carControl.controlCar(position.getX(),position.getY());
+        JSONObject res = JSONObject.parseObject(param.getBody());
+        System.out.println(param);
+
+        return BaseResUtil.success();
+
+    }
 }

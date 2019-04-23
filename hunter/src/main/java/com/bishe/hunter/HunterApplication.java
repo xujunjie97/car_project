@@ -12,10 +12,10 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableDiscoveryClient
 @MapperScan(basePackages = "com.bishe.hunter.dao")
-//@EnableDistributedTransaction
+@EnableDistributedTransaction
 @EnableCircuitBreaker// 开启断路器
 @EnableFeignClients(basePackages = {"com.bishe.hunter"})
-@ComponentScan("com.bishe.hunter")
+//@ComponentScan("com.bishe.hunter")
 public class HunterApplication {
 
 	public static void main(String[] args) {
