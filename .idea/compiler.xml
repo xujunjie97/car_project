@@ -7,15 +7,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="hunter" />
-        <module name="car_project" />
-        <module name="market" />
-        <module name="eureka-service" />
         <module name="consumer-service" />
-      </profile>
-      <profile name="Annotation profile for txlcn-tm" enabled="true">
-        <sourceOutputDir name="../../target/generated-sources/annotations" />
-        <sourceTestOutputDir name="../../target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
+        <module name="eureka-service" />
+        <module name="market" />
         <module name="txlcn-tm" />
       </profile>
     </annotationProcessing>
@@ -32,6 +26,8 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="car_project" options="-parameters" />
       <module name="consumer-service" options="-parameters" />
+      <module name="market" options="-parameters" />
+      <module name="txlcn-tm" options="-parameters -Xlint:deprecation" />
     </option>
   </component>
 </project>

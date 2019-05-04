@@ -62,6 +62,11 @@ public class AdminController {
         return prefix + "carStatus";
     }
 
+    @GetMapping("/bindStatus")
+    public String bindStatus() {
+        return prefix + "bindStatus";
+    }
+
     /**
      * 更新小车状态
      */

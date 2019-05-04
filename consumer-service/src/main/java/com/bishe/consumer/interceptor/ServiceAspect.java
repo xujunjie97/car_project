@@ -3,17 +3,13 @@ package com.bishe.consumer.interceptor;
 
 import com.bishe.consumer.redis.key.prefix.UserKeyPrefix;
 import com.bishe.consumer.service.RedisService;
-import com.sun.xml.internal.ws.util.Pool;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 
 @Configuration
 @Aspect

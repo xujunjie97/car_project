@@ -24,6 +24,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -233,7 +235,7 @@ public class UserController extends BaseController {
         }
     }
 
-    @RequestMapping("/unBindByAdmin")
+    @PostMapping("/unBindByAdmin")
     @Transactional
     @LcnTransaction
     public BaseRes unBindByAdmin(String openId) {
@@ -247,5 +249,23 @@ public class UserController extends BaseController {
     }
 
 
+    /**
+     * 判断车辆绑定状态
+     */
+    @GetMapping("/bindingVerification")
+    public BaseRes bindingVerification(String userSessionKey){
+        String userSession = this.getUser(userSessionKey);
+        if (StringUtils.isEmpty(userSession)) {
+            return BaseResUtil.error(-1, "登陆信息失效");
+        }
+        String openId = userSession.split("_")[0];
+
+        String carNum = userService.isBinding(openId);
+        if(!StringUtils.isEmpty(openId) && !StringUtils.isEmpty(carNum)){
+            return BaseResUtil.success(carNum);
+        }
+
+        return BaseResUtil.error(ResultEnum.ACCOUNT_NOT);
+    }
 
 }

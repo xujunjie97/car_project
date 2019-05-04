@@ -9,7 +9,6 @@ import com.bishe.hunter.service.CarService;
 import com.bishe.hunter.utils.BaseRes;
 import com.bishe.hunter.utils.BaseResUtil;
 import com.bishe.hunter.utils.CookiesUtil;
-import com.sun.tools.internal.xjc.model.CArrayInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

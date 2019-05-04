@@ -16,9 +16,9 @@
       </driver-properties>
     </data-source>
     <data-source source="LOCAL" name="car@localhost" uuid="c8fee483-6288-44a9-97bf-2c3c30f09687">
-      <driver-ref>mysql</driver-ref>
+      <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/car</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
@@ -30,9 +30,9 @@
       </driver-properties>
     </data-source>
     <data-source source="LOCAL" name="tx-manager@localhost" uuid="b9f3c60b-1f9e-42bc-89d4-3e586cb1956c">
-      <driver-ref>mysql</driver-ref>
+      <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/tx-manager</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />

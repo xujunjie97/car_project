@@ -20,6 +20,14 @@
         WHERE open_id=#{openId}
     </select>
 
+    <select id="isBinding" resultType="java.lang.String">
+        SELECT
+        car_num
+        FROM USER
+        WHERE open_id=#{openId} AND
+        car_num != 'NOCAR'
+    </select>
+
     <select id="getOneByNickName" resultType="com.bishe.consumer.entity.User">
         SELECT
         <include refid="user"></include>

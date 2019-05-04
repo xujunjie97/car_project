@@ -15,10 +15,13 @@
     <description>Demo project for Spring Boot</description>
 
     <modules>
-        <module>consumer-service</module>
+        <module>txlcn-tm</module>
         <module>eureka-service</module>
+        <module>consumer-service</module>
         <module>hunter</module>
+        <module>market</module>
     </modules>
+    <packaging>pom</packaging>
 
     <properties>
         <java.version>1.8</java.version>

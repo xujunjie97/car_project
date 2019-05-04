@@ -22,4 +22,6 @@ public interface UserDao {
 
     Boolean update(@Param("user")User user);
 
+    String isBinding(String openId);
+
 }

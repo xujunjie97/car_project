@@ -39,4 +39,11 @@ public class UserServiceImpl implements UserService {
         return userDao.update(user);
 
     }
+
+    @Override
+    public String isBinding(String openId) {
+
+
+        return userDao.isBinding(openId);
+    }
 }
